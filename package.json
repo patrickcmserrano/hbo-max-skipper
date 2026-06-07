@@ -1,0 +1,13 @@
+{
+  "name": "hbo-max-skipper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:e2e": "playwright test",
+    "validate": "node scripts/validate-selectors.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0"
+  }
+}
