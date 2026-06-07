@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HBO Max Skipper</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <h1>HBO Max Skipper</h1>
+  </header>
+
+  <main>
+    <section class="toggles">
+      <label class="toggle-row">
+        <span class="toggle-label">Pular abertura</span>
+        <input type="checkbox" id="skipIntro">
+        <span class="slider"></span>
+      </label>
+
+      <label class="toggle-row">
+        <span class="toggle-label">Pular recap</span>
+        <input type="checkbox" id="skipRecap">
+        <span class="slider"></span>
+      </label>
+
+      <label class="toggle-row">
+        <span class="toggle-label">Próximo episódio automático</span>
+        <input type="checkbox" id="autoNext">
+        <span class="slider"></span>
+      </label>
+
+      <div class="delay-row" id="delayRow">
+        <span class="delay-label">Delay: <strong id="delayDisplay">5</strong>s</span>
+        <input type="range" id="autoNextDelay" min="0" max="30" step="1" value="5">
+      </div>
+    </section>
+
+    <section class="health">
+      <h2>Status dos seletores <span class="version" id="selectorsVersion"></span></h2>
+      <ul id="healthList">
+        <li class="health-item" data-feature="skipIntro">
+          <span class="dot dot--unknown"></span>
+          <span>Pular abertura</span>
+        </li>
+        <li class="health-item" data-feature="skipRecap">
+          <span class="dot dot--unknown"></span>
+          <span>Pular recap</span>
+        </li>
+        <li class="health-item" data-feature="nextEpisode">
+          <span class="dot dot--unknown"></span>
+          <span>Próximo episódio</span>
+        </li>
+      </ul>
+      <p class="health-hint" id="healthHint">Abra um episódio para validar os seletores.</p>
+    </section>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+</html>

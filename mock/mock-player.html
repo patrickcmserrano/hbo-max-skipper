@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Mock Player — HBO Max Skipper Dev</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .player-wrap {
+      position: relative;
+      width: 854px;
+      max-width: 100%;
+    }
+
+    video {
+      width: 100%;
+      display: block;
+      background: #111;
+    }
+
+    /* Overlay buttons — positioned like Max does it */
+    .overlay-btn {
+      position: absolute;
+      bottom: 80px;
+      right: 24px;
+      padding: 10px 20px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 4px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+      backdrop-filter: blur(4px);
+      transition: background 0.15s;
+    }
+
+    .overlay-btn:hover { background: rgba(255,255,255,0.28); }
+
+    .timeline {
+      width: 854px;
+      max-width: 100%;
+      padding: 12px;
+      background: #111;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    .timeline p { margin-bottom: 6px; }
+    .events { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .event-badge {
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+      background: #222;
+      border: 1px solid #333;
+    }
+    .event-badge.active { border-color: #5e3af2; color: #a78bfa; }
+  </style>
+</head>
+<body>
+
+<div class="player-wrap">
+  <!--
+    Coloque um arquivo de vídeo aqui.
+    Sugestão: baixe Big Buck Bunny (domínio público) e renomeie para sample.mp4:
+    curl -L "https://download.blender.org/demo/movies/BBB/bbb_sunflower_720p_30fps_normal.mp4" -o mock/sample.mp4
+  -->
+  <video id="video" controls>
+    <source src="sample.mp4" type="video/mp4">
+    <p style="padding:40px;text-align:center;color:#666">
+      Coloque um arquivo <code>sample.mp4</code> na pasta <code>mock/</code>.
+    </p>
+  </video>
+
+  <!-- Botões com os mesmos data-testid que o Max usa -->
+  <button class="overlay-btn" id="skipIntroBtn" data-testid="player-ux-skip-button" aria-label="Ignorar abertura">
+    Ignorar abertura
+  </button>
+
+  <button class="overlay-btn" id="skipRecapBtn" data-testid="player-ux-skip-button" aria-label="Ignorar recapitulação">
+    Ignorar recapitulação
+  </button>
+
+  <button class="overlay-btn" id="nextEpisodeBtn" data-testid="player-ux-next-up-card-play-button">
+    Próximo episódio
+  </button>
+</div>
+
+<div class="timeline">
+  <p>Simulação de timing dos botões:</p>
+  <div class="events">
+    <span class="event-badge" id="badge-recap">recap: 0–8s</span>
+    <span class="event-badge" id="badge-intro">abertura: 10–40s</span>
+    <span class="event-badge" id="badge-next">próximo: últimos 30s</span>
+  </div>
+</div>
+
+<script src="mock-player.js"></script>
+</body>
+</html>
