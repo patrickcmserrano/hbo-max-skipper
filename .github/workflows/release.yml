@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Montar versão a partir da tag
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - name: Atualizar versão no manifest.json
+        run: |
+          jq --arg v "${{ steps.version.outputs.version }}" \
+            '.version = $v' manifest.json > manifest.tmp.json
+          mv manifest.tmp.json manifest.json
+
+      - name: Empacotar extensão
+        run: |
+          zip -r hbo-max-skipper-${{ github.ref_name }}.zip . \
+            --exclude "*.git*" \
+            --exclude "node_modules/*" \
+            --exclude "tests/*" \
+            --exclude "scripts/*" \
+            --exclude "mock/*" \
+            --exclude "playwright.config.js" \
+            --exclude "package*.json" \
+            --exclude ".github/*" \
+            --exclude "SECURITY.md" \
+            --exclude "CHANGELOG.md"
+
+      - name: Criar GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: hbo-max-skipper-${{ github.ref_name }}.zip
+          body: |
+            ## Instalação
+
+            1. Baixe o arquivo `hbo-max-skipper-${{ github.ref_name }}.zip`
+            2. Descompacte em qualquer pasta
+            3. Abra `chrome://extensions`
+            4. Ative o **Modo do desenvolvedor**
+            5. Clique em **Carregar sem compactação** e selecione a pasta descompactada
+
+            ---
+
+            Veja o [CHANGELOG](https://github.com/${{ github.repository }}/blob/master/CHANGELOG.md) para detalhes desta versão.
