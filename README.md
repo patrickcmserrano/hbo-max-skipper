@@ -120,6 +120,12 @@ Edita selectors.js ou content_script.js
 
 Veja [SECURITY.md](SECURITY.md) para reportar vulnerabilidades.
 
+## Adicionando outros serviços
+
+A extensão suporta múltiplos serviços — basta descobrir os seletores e adicionar o domínio. Veja o guia completo em [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Serviços com seletores documentados pela comunidade: **HBO Max** ✓ · Netflix · Prime Video · Disney+
+
 ## Licença
 
 MIT
